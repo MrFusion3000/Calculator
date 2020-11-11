@@ -6,27 +6,82 @@ namespace Calculator
 {
     class Program
     {
-        static void Main()
+        public static void Main()
         {
-            Program program = new Program();
-
-            program.InputParameters();
-
-            //if (exit1 == "x")
-            //{
-            //    Console.WriteLine("Thank you for using the program. Calc You Later.");
-            //}
-
-
-
-
+            Calc1 calc1 = new Calc1();
+            calc1.Menu();
         }
+    }
+
+    public class Calc1
+    { 
+        //Menu
+        public void Menu()
+        {
+            int antalMenyval = 9;                       // initiera antal menyval på huvudmenyn
+            int menyVal;                                // initiera heltalsvariabel menyVal för användarinput
+
+            // *** Switch och case med do-while-loop så länge menyVal är annat än 0
+            do
+            {
+                Console.Clear();                        // Rensa skärmen
+                Console.WriteLine("* ** *** H U V U D M E N Y *** ** *\n");
+                Console.WriteLine("Välj ett alternativ (och tryck Enter):\n");
+                Console.WriteLine("1. Calc1 - Rad-för-rad");
+                Console.WriteLine("2. Calc2 - Allt-i-ett");
+
+                Console.WriteLine("0. Avsluta \n");
+
+                menyVal = Check_Valid(antalMenyval);   // Kontroll av godkända tecken och blockering av annat än siffror
+
+                switch (menyVal)
+                {
+                    case 1:
+                        Calc1InputParameters();
+                        break;
+                    case 2:
+                        Calc2InputParameters();
+                        break;
+                    case 0:                             // Val 0, ger meddelande till användaren och avslutar programmet.
+                        Console.WriteLine("You have left the calculator. Bye, Calc You Later!.");
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("Flalse choice. Choose between  0 - " + (antalMenyval--) + ".");
+                        break;
+                }
+
+            } while (menyVal != 0);
+        } // **** End Run() ****    
 
         //Method for input
-        void InputParameters()
+        public void Calc1InputParameters()
         {
+            Console.WriteLine("Rad-För-Rad");
+
             Console.WriteLine("Enter first number: ");
             int number1 = CorrectInput();
+
+            //input operator        fixa char check!
+            Console.WriteLine("Enter operator (+ - / *) : ");
+            char operator1 = CorrectOpInput();
+
+            //input another number
+            Console.WriteLine("Enter second number: ");
+            int number2 = CorrectInput();
+
+            // print result
+            double totalSum = InputNumber(number1, number2, operator1);
+            PrintResult(totalSum);
+        }
+
+        public void Calc2InputParameters()
+        {
+            Console.WriteLine("Allt-i-Ett");
+
+            Console.WriteLine("Enter your calculation (number1,operator,number2): ");
+            string  rowCalc = Console.ReadLine();
+            //while loop? int number1 = int.TryParse(rowCalc.Substring(0, rowCalc.IndexOf(",")),out number1);
 
             //input operator        fixa char check!
             Console.WriteLine("Enter operator (+ - / *) : ");
@@ -161,6 +216,19 @@ namespace Calculator
             totalSum = number1 * number2;
             return totalSum;
         }
+
+        public int Check_Valid(int _antalMenyval)       // Metoden tar med sig argumentet _antalMenyval
+        {
+            int antalMenyval = _antalMenyval;
+            int _menyVal;
+            while (!int.TryParse(Console.ReadLine(), out _menyVal))
+            {
+                Console.WriteLine("Endast något av menyvalen 0 - " + (antalMenyval--) + " är giltiga.");
+
+            }
+            return _menyVal;        // Metoden returnerar ett korrekt valalternativ
+
+        }   // **** End Check_Valid() ****
 
     }
 }
