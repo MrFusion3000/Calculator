@@ -54,13 +54,13 @@ namespace Calculator
             } while (menyVal != 0);
         } // **** End Run() ****    
 
-        //Method for input
+        //Method for input Calc1
         public void Calc1InputParameters()
         {
             Console.WriteLine("Rad-För-Rad");
 
             Console.WriteLine("Enter first number: ");
-            int number1 = CorrectInput();
+            double number1 = CorrectInput();
 
             //input operator        fixa char check!
             Console.WriteLine("Enter operator (+ - / *) : ");
@@ -68,35 +68,59 @@ namespace Calculator
 
             //input another number
             Console.WriteLine("Enter second number: ");
-            int number2 = CorrectInput();
+            double number2 = CorrectInput();
 
             // print result
             double totalSum = InputNumber(number1, number2, operator1);
             PrintResult(totalSum);
         }
 
+        //Method for intput Calc2
         public void Calc2InputParameters()
         {
             Console.WriteLine("Allt-i-Ett");
 
-            Console.WriteLine("Enter your calculation (number1,operator,number2): ");
-            string  rowCalc = Console.ReadLine();
-            //while loop? int number1 = int.TryParse(rowCalc.Substring(0, rowCalc.IndexOf(",")),out number1);
+            Console.WriteLine("Enter your calculation in one row: ");
+            string  rowCalc = Console.ReadLine();            
+            char operator1 = ' ';          
 
-            //input operator        fixa char check!
-            Console.WriteLine("Enter operator (+ - / *) : ");
-            char operator1 = CorrectOpInput();
+            if (rowCalc.Contains("+"))
+            {
+                operator1 = '+'; 
+            }
+            else if (rowCalc.Contains("-"))
+            {
+                operator1 = '-';
+            }
+            else if (rowCalc.Contains("/"))
+            {
+                operator1 = '/';
+            }
+            else if (rowCalc.Contains("*"))
+            {
+                operator1 = '*';
+            }
 
-            //input another number
-            Console.WriteLine("Enter second number: ");
-            int number2 = CorrectInput();
+            // pick out 1st number from string
+            string number1ToStr = rowCalc.Substring(0, rowCalc.IndexOf(operator1));
+
+            // pick out 2nd number from string
+            string number2ToStr = rowCalc.Substring(rowCalc.IndexOf(operator1) + 1);
+
+            //convert strings to numbers(integers)
+            double number1 = CorrectInput2(number1ToStr);
+            double number2 = CorrectInput2(number2ToStr);
+
+            Console.WriteLine("No1: " + number1);
+            Console.WriteLine("No2: " + number2);
+            Console.WriteLine("operator: " + operator1);            
 
             // print result
             double totalSum = InputNumber(number1, number2, operator1);
             PrintResult(totalSum);
         }
 
-        //Method for handling correct number input
+        //Method for handling correct number input Calc1
         int CorrectInput()
         {
             bool input = false;
@@ -154,7 +178,7 @@ namespace Calculator
         }
 
         //Method for calculations
-        double InputNumber(int number1, int number2, char operator1)
+        double InputNumber(double number1, double number2, char operator1)
         {
             double totalSum = 0;
 
@@ -187,7 +211,7 @@ namespace Calculator
         }
 
         //Method for addition
-        double CalcAdd(int number1, int number2)
+        double CalcAdd(double number1, double number2)
         {
             double totalSum;
             totalSum = number1 + number2;
@@ -195,14 +219,14 @@ namespace Calculator
         }
 
         //Method for subtraction
-        double CalcSub(int number1, int number2)
+        double CalcSub(double number1, double number2)
         {
             double totalSum;
             totalSum = number1 - number2;
             return totalSum;
         }
         //Method for division
-        double CalcDiv(int number1, int number2)
+        double CalcDiv(double number1, double number2)
         {
             double totalSum;
             totalSum = number1 / number2;
@@ -210,7 +234,7 @@ namespace Calculator
         }
 
         //Method for multiplication
-        double CalcMult(int number1, int number2)
+        double CalcMult(double number1, double number2)
         {
             double totalSum;
             totalSum = number1 * number2;
@@ -230,5 +254,21 @@ namespace Calculator
 
         }   // **** End Check_Valid() ****
 
+        //Method for handling correct number input Calc2
+        int CorrectInput2(string num2Str)
+        {
+            string _number2Str = num2Str;
+            bool input = false;
+            int number = 0;
+
+            while (!input)
+            {
+                input = int.TryParse(_number2Str, out number);
+                if (!input)
+                    Console.WriteLine("That's not a valid number!");
+            }
+
+            return number;
+        }
     }
 }
