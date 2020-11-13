@@ -25,6 +25,7 @@ namespace Calculator
             do
             {
                 Console.Clear();                        // Rensa skärmen
+                Console.WriteLine("Hi and Welcome to Calc-U-Later\n");
                 Console.WriteLine("* ** *** H U V U D M E N Y *** ** *\n");
                 Console.WriteLine("Välj ett alternativ (och tryck Enter):\n");
                 Console.WriteLine("1. Calc1 - Rad-för-rad");
