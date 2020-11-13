@@ -100,6 +100,10 @@ namespace Calculator
             {
                 operator1 = '*';
             }
+            else
+            {
+                Console.WriteLine("Wrong operator!");
+            }
 
             // pick out 1st number from string
             string number1ToStr = rowCalc.Substring(0, rowCalc.IndexOf(operator1));
@@ -255,15 +259,15 @@ namespace Calculator
         }   // **** End Check_Valid() ****
 
         //Method for handling correct number input Calc2
-        int CorrectInput2(string num2Str)
+        double CorrectInput2(string num2Str)
         {
             string _number2Str = num2Str;
             bool input = false;
-            int number = 0;
+            double number = 0;
 
             while (!input)
             {
-                input = int.TryParse(_number2Str, out number);
+                input = double.TryParse(_number2Str, out number);
                 if (!input)
                     Console.WriteLine("That's not a valid number!");
             }
