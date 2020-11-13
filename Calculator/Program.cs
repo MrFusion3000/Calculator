@@ -121,14 +121,14 @@ namespace Calculator
         }
 
         //Method for handling correct number input Calc1
-        int CorrectInput()
+        double CorrectInput()
         {
             bool input = false;
-            int number = 0;
+            double number = 0.0;
 
             while (!input)
             {
-                input = int.TryParse(Console.ReadLine(), out number);
+                input = double.TryParse(Console.ReadLine(), out number);
                 if (!input)
                     Console.WriteLine("That's not a valid number!");
             }
