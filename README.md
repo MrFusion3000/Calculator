@@ -1,3 +1,3 @@
 # Calculator
 
-Excercise 1 in C# - Simple Calculator for the Console.
+Exercise 1 in C# - Simple Calculator for the Console.
